@@ -1,0 +1,41 @@
+** To install Kafka
+brew install kafka
+
+** To Start zookeeper and kafka
+/opt/homebrew/bin/zookeeper-server-start /opt/homebrew/etc/zookeeper/zoo.cfg
+/opt/homebrew/bin/kafka-server-start /opt/homebrew/etc/kafka/server.properties
+
+** Create topic
+/opt/homebrew/bin/kafka-topics --create --bootstrap-server 127.0.0.1:9092 --replication-factor 1 --partitions 1 --topic cancer-train
+/opt/homebrew/bin/kafka-topics --create --bootstrap-server 127.0.0.1:9092 --replication-factor 1 --partitions 2 --topic cancer-test
+
+** Delete a topic from kafka
+/opt/homebrew/bin/kafka-topics --bootstrap-server 127.0.0.1:9092 --delete --topic cancer-train
+
+** List topics avaialbe in kafka
+/opt/homebrew/bin/kafka-topics --bootstrap-server localhost:9092 --list --exclude-internal
+
+** show details of a kafka topic 
+/opt/homebrew/bin/kafka-topics --bootstrap-server localhost:9092 --describe --topic cancer-train
+
+
+"""
+Leader: 1 means that for partition 0, the broker with the ID 1 is the leader.
+
+Replicas: 1 means that for partition 0, the broker with the ID 1 is a replica.
+
+Isr: 1 means that for partition 0, the broker with the ID 1 is an in-sync replica.
+"""
+
+** Increase partitions:
+/opt/homebrew/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic first_topic --partitions 5
+
+** To see setup configuration of kafka
+cat /opt/homebrew/etc/kafka/server.properties 
+
+** To use tensorflow
+pandas==2.2.2
+python==3.10
+tensorflow==2.13.0rc0
+tensorflow-io==0.34.0
+kafka-python==2.0.2
